@@ -1,0 +1,4 @@
+Scrapy==1.5.0
+Flask==0.12.1
+flask-restful==0.3.6
+
