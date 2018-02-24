@@ -32,26 +32,6 @@ class ArticleTopicQuerySearch(Resource):
 
 
 
-# class CocktailQueryById(Resource):
-#     def get(self, id):
-#         drinkIds = []
-#         jsonData = requests.get(
-#             "http://www.thecocktaildb.com/api/json/v1/1/lookup.php?i={}".format(id))
-#         drinks = jsonData.json()['drinks']
-#         return None
-#
-#
-# class CocktailQuery(Resource):
-#     def get(self):
-#         drinkIds = []
-#         jsonData = requests.get(
-#             "http://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic")
-#         drinks = jsonData.json()['drinks']
-#         for dr in drinks:
-#             drinkIds.append(dr['idDrink'])
-#         return drinkIds
-
-
 api.add_resource(ArticleTopicQueryNews, '/articles/<keyword>')
 
 if __name__ == '__main__':

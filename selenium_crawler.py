@@ -12,8 +12,8 @@ class TestTranscript(unittest.TestCase):
         options.add_argument('headless')
         self.driver = webdriver.Chrome(chrome_options=options)
 
-    def test_grabTranscript(self):
-        self.driver.get("https://www.youtube.com/watch?v=mpwyQ3Ch6Lc")
+    def test_grabTranscript(self, videoId):
+        self.driver.get("https://www.youtube.com/watch?v={}".format(videoId))
         #mute video
         WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.XPATH, "//button[@class='ytp-mute-button ytp-button']"))).click()
 
@@ -29,7 +29,7 @@ class TestTranscript(unittest.TestCase):
         #grabs transcript from the video
         text = self.driver.find_element_by_xpath("/html[1]/body[1]/ytd-app[1]/div[1]/ytd-page-manager[1]/ytd-watch[1]/div[2]/div[2]/div[1]/ytd-transcript-loader[1]/div[1]/ytd-transcript-renderer[1]/div[2]/ytd-transcript-body-renderer[1]").text
 
-        print(text)
+        return text
 
     def tearDown(self):
         self.driver.quit()

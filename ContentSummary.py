@@ -1,7 +1,4 @@
-
-
-
-class ArticleSummary:
+class ContentSummary:
 
     def __init__(self, url, title, sumSentences):
         self.url = url
