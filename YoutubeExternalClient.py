@@ -16,16 +16,17 @@ class YoutubeVideoQuery(Resource):
                   "key": credentials.YOUTUBE_API_KEY}
         url = "https://www.googleapis.com/youtube/v3/search"
         videoQuery = requests.get(url=url, params=params)
-        videos = videoQuery.json()['items']
         videoIds = {}
-        if len(videos) > 4:
-            for i in range(4):
-                vidId = videos[i]['id']['videoId']
-                videoIds[vidId] = videos[i]['snippet']['title']
-        else:
-            for vd in videos:
-                vidId = vd['id']['videoId']
-                videoIds[vidId] = vd['snippet']['title']
+        if videoQuery.json()['items']:
+            videos = videoQuery.json()['items']
+            if len(videos) > 4:
+                for i in range(4):
+                    vidId = videos[i]['id']['videoId']
+                    videoIds[vidId] = videos[i]['snippet']['title']
+            else:
+                for vd in videos:
+                    vidId = vd['id']['videoId']
+                    videoIds[vidId] = vd['snippet']['title']
         return videoIds
 
 

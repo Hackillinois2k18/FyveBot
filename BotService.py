@@ -6,6 +6,8 @@ from selenium_crawler import SeleniumScrape
 import os
 from random import shuffle
 import time
+import json
+import jsonify
 
 
 class BotService:
@@ -39,6 +41,7 @@ class BotService:
             articleSummary = ContentSummary(url, title, sumSentences)
             artSummaries.append(articleSummary)
         shuffle(artSummaries)
+        print(json.dumps(artSummaries, default=lambda o: o.__dict__))
         return artSummaries
 
     def queryYoutubeVideos(self, keywords):
@@ -56,7 +59,7 @@ class BotService:
             except:
                 continue
             if transcript:
-                os.system("cat python3 /deep-auto-punctuation/infer.py {} >> inferred_transcript.txt".format(transcript))
+                os.system("cd deep-auto-punctuation; python3 deep-auto-punctuation/infer.py {} >> inferred_transcript.txt".format(transcript))
                 with open('deep-auto-punctuation/inferred_transcript.txt', 'r') as inferredStrFile:
                     inferredString = inferredStrFile.read().replace('\n', '')
                 inferredStrFile.close()
@@ -71,7 +74,7 @@ class BotService:
 
 if __name__ == '__main__':
     botService = BotService()
-    botService.queryYoutubeVideos("birds")
+    botService.getSummariesForArticles("what is the most expensive yacht in the world")
 
 
 
