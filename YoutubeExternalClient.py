@@ -20,7 +20,7 @@ class YoutubeVideoQuery(Resource):
                     vidId = videos[i]['id']['videoId']
                     videoTitles[vidId] = videos[i]['snippet']['title']
                     try:
-                        videoDisplays[vidId] = videos[i]['snippet']['thumbnails']['default']['url']
+                        videoDisplays[vidId] = videos[i]['snippet']['thumbnails']['high']['url']
                     except KeyError:
                         videoDisplays[vidId] = ""
             else:
@@ -28,7 +28,7 @@ class YoutubeVideoQuery(Resource):
                     vidId = vd['id']['videoId']
                     videoTitles[vidId] = vd['snippet']['title']
                     try:
-                        videoDisplays[vidId] = vd['snippet']['thumbnails']['default']['url']
+                        videoDisplays[vidId] = vd['snippet']['thumbnails']['high']['url']
                     except KeyError:
                         videoDisplays[vidId] = ""
         return videoTitles, videoDisplays

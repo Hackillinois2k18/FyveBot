@@ -10,9 +10,12 @@ class SummaryExternalClient:
                    "X-AYLIEN-TextAPI-Application-ID" : credentials.AYLIEN_APP_ID}
         params = {"url" : artUrl,
                   "title" : title,
-                  "sentences_number": 13}
+                  "sentences_number": 9}
         summary = requests.get(url=url, headers=headers, params=params)
-        sentences = summary.json()['sentences']
+        try:
+            sentences = summary.json()['sentences']
+        except:
+            sentences = []
         return sentences
 
     def pullSummaryForText(self, text, title):
@@ -21,8 +24,11 @@ class SummaryExternalClient:
                    "X-AYLIEN-TextAPI-Application-ID" : credentials.AYLIEN_APP_ID}
         params = {"text": text,
                   "title": title,
-                  "sentences_number": 13}
+                  "sentences_number": 9}
         summary = requests.get(url=url, headers=headers, params=params)
-        sentences = summary.json()['sentences']
+        try:
+            sentences = summary.json()['sentences']
+        except:
+            sentences = []
         return sentences
 
