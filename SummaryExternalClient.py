@@ -26,8 +26,3 @@ class SummaryExternalClient:
         sentences = summary.json()['sentences']
         return sentences
 
-
-
-if __name__ == "__main__":
-    client = SummaryExternalClient()
-    print(client.pullSummaryForUrl("https://en.wikipedia.org/wiki/Sailing#History", "Sailing - Wikipedia"))

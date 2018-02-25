@@ -1,11 +1,6 @@
-from flask import Flask, jsonify
-from flask_restful import Resource, Api
+from flask_restful import Resource
 import requests
 import credentials
-import json
-
-app = Flask(__name__)
-api = Api(app)
 
 class YoutubeVideoQuery(Resource):
 
@@ -16,22 +11,26 @@ class YoutubeVideoQuery(Resource):
                   "key": credentials.YOUTUBE_API_KEY}
         url = "https://www.googleapis.com/youtube/v3/search"
         videoQuery = requests.get(url=url, params=params)
-        videoIds = {}
+        videoTitles = {}
+        videoDisplays = {}
         if videoQuery.json()['items']:
             videos = videoQuery.json()['items']
             if len(videos) > 4:
                 for i in range(4):
                     vidId = videos[i]['id']['videoId']
-                    videoIds[vidId] = videos[i]['snippet']['title']
+                    videoTitles[vidId] = videos[i]['snippet']['title']
+                    try:
+                        videoDisplays[vidId] = videos[i]['snippet']['thumbnails']['default']['url']
+                    except KeyError:
+                        videoDisplays[vidId] = ""
             else:
                 for vd in videos:
                     vidId = vd['id']['videoId']
-                    videoIds[vidId] = vd['snippet']['title']
-        return videoIds
+                    videoTitles[vidId] = vd['snippet']['title']
+                    try:
+                        videoDisplays[vidId] = vd['snippet']['thumbnails']['default']['url']
+                    except KeyError:
+                        videoDisplays[vidId] = ""
+        return videoTitles, videoDisplays
 
-
-api.add_resource(YoutubeVideoQuery, '/videos/<keywords>')
-
-if __name__ == '__main__':
-    app.run(port=6000)
 

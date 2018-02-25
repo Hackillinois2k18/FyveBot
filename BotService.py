@@ -24,34 +24,35 @@ class BotService:
         self.seleniumScrape = SeleniumScrape()
 
     def queryRelevantNewsArticles(self, keyword):
-        articleUrls = self.newsArticleClient.get(keyword)
-        return articleUrls
+        articleNames, articleDisplays = self.newsArticleClient.get(keyword)
+        return articleNames, articleDisplays
 
 
     def queryRelevantSearchArticles(self, keyword):
-        articleUrls = self.searchArticleClient.get(keyword)
-        return articleUrls
+        articleNames, articleDisplays = self.searchArticleClient.get(keyword)
+        return articleNames, articleDisplays
 
     def getSummariesForArticles(self, keyword):
         artSummaries = []
-        newsArticles = self.queryRelevantNewsArticles(keyword)
-        searchArticles = self.queryRelevantSearchArticles(keyword)
-        for title, url in searchArticles.iteritems():
+        newsArticleNames, newsArticleDisplays = self.queryRelevantNewsArticles(keyword)
+        searchArticleNames, searchArticleDisplays = self.queryRelevantSearchArticles(keyword)
+        for url, title in searchArticleNames.iteritems():
             sumSentences = self.summaryExtClient.pullSummaryForUrl(url, title)
-            articleSummary = ContentSummary(url, title, sumSentences)
+            displayUrl = searchArticleDisplays.get(url)
+            articleSummary = ContentSummary(url, title, sumSentences, displayUrl)
             artSummaries.append(articleSummary)
-        for title, url in newsArticles.iteritems():
+        for url, title in newsArticleNames.iteritems():
             sumSentences = self.summaryExtClient.pullSummaryForUrl(url, title)
-            articleSummary = ContentSummary(url, title, sumSentences)
+            displayUrl = newsArticleDisplays.get(url)
+            articleSummary = ContentSummary(url, title, sumSentences, displayUrl)
             artSummaries.append(articleSummary)
         shuffle(artSummaries)
-        
         return json.dumps(artSummaries, encoding='utf-8', default=lambda o: o.__dict__)
 
     def getYoutubeVideoSums(self, keywords):
-        videoIds = self.youtubeQueryClient.get(keywords)
+        videoTitles, videoDisplays = self.youtubeQueryClient.get(keywords)
         videoSummaries = []
-        for vidId, title in videoIds.iteritems():
+        for vidId, title in videoTitles.iteritems():
             vidUrl = "https://www.youtube.com/watch?v={}".format(vidId)
             try:
                 self.seleniumScrape.run(vidId)
@@ -70,16 +71,17 @@ class BotService:
                 inferredStrFile.close()
                 os.remove('deep-auto-punctuation/inferred_transcript.txt')
                 sumSentences = self.summaryExtClient.pullSummaryForText(inferredString, title)
-                videoSummary = ContentSummary(vidUrl, title, sumSentences)
+                vidDisplay = videoDisplays.get(vidId)
+                videoSummary = ContentSummary(vidUrl, title, sumSentences, vidDisplay)
                 videoSummaries.append(videoSummary)
-        
+        print(json.dumps(videoSummaries, encoding='utf-8', default=lambda o: o.__dict__))
         return json.dumps(videoSummaries, encoding='utf-8', default=lambda o: o.__dict__)
 
 
 
 if __name__ == '__main__':
     botService = BotService()
-    botService.getSummariesForArticles("how to make a slip and slide")
+    botService.getSummariesForArticles("how to dice onions")
 
 
 
