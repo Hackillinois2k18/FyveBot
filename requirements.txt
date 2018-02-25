@@ -1,4 +1,10 @@
-Flask==0.12.1
-flask-restful==0.3.6
-requests==2.13.0
-credentials==1.1
+requests==2.18.4
+numpy==1.14.1
+torch==0.3.0.post4
+termcolor==1.1.0
+Flask==0.12.2
+flask_restful==0.3.6
+jsonify==0.5
+selenium==3.9.0
+tqdm==4.19.5
+visdom==0.1.7
