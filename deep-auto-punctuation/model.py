@@ -41,9 +41,9 @@ class GruRNN(nn.Module):
 
 class Engadget():
     def __init__(self, model, char2vec=None, output_char2vec=None):
-        print('****** Engadget Model Initialize ******')
         self.model = model
         if char2vec is None:
+            print('lol')
             self.char2vec = Char2Vec()
         else:
             self.char2vec = char2vec
@@ -112,8 +112,7 @@ class Engadget():
         return self
 
     def output_chars(self, temperature = 1):
-        self.softmax = self.model.softmax(self.output.view(-1, self.model.output_size) / temperature
-                                          ).view(self.model.batch_size, -1, self.model.output_size)
+        self.softmax = self.model.softmax((self.output.view(-1, self.model.output_size) / temperature), 1).view(self.model.batch_size, -1, self.model.output_size)
         indexes = torch.multinomial(self.softmax.view(-1, self.model.output_size)
                                     ).view(self.model.batch_size, -1)
         return self.output_char2vec.vec2list_batch(indexes)

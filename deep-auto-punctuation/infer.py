@@ -23,7 +23,6 @@ def get_edgt():
     input_size = char2vec.size
     output_size = output_char2vec.size
 
-    cprint("input_size is: " + c(input_size, 'green') + "; ouput_size is: " + c(output_size, 'green'))
     hidden_size = input_size
     layers = 1
 
@@ -37,16 +36,15 @@ def predict_next(source, in_edgt, gen_length=None, temperature=0.05):
     input_chars = list(" \nabcdefghijklmnopqrstuvwxyz01234567890")
     output_chars = ["<nop>", "<cap>"] + list(".,;:?!\"'$")
     input_text, punc_target = data.extract_punc(source, input_chars, output_chars)
-    egdt = in_edgt
-    egdt.model.batch_size = 1
-    egdt.init_hidden_()
-    egdt.next_([input_text])
-    punc_output = egdt.output_chars(temperature=temperature)[0]
+    in_edgt.model.batch_size = 1
+    in_edgt.init_hidden_()
+    in_edgt.next_([input_text])
+    punc_output = in_edgt.output_chars(temperature=temperature)[0]
     result = data.apply_punc(input_text, punc_output)
     # capitalize letters after periods
-    for i in range(len(result)):
+    for i in range(len(result) - 1):
         if result[i] == '.':
-            result = result[:i - 1] + result[i].upper() + result[i:]
+            result = result[:i] + result[i].upper() + result[i + 1:]
     return result
 
 predict_next(source, get_edgt())
