@@ -13,7 +13,7 @@ class TestTranscript(unittest.TestCase):
         self.driver = webdriver.Chrome(chrome_options=options)
 
     def test_grabTranscript(self, videoId):
-        self.driver.get("https://www.youtube.com/watch?v={}".format(videoId))
+        self.driver.get("https://www.youtube.com/watch?v=3QwuG2v-WxI&t=68s".format(videoId))
         #mute video
         WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.XPATH, "//button[@class='ytp-mute-button ytp-button']"))).click()
 

@@ -50,19 +50,20 @@ class BotService:
             except:
                 continue
             if transcript:
-                os.system("python3 /deep-auto-punctuation/infer.py {}".format(transcript))
-                inferredString = "Yes"
-
+                os.system("cat python3 /deep-auto-punctuation/infer.py {} >> inferred_transcript.txt".format(transcript))
+                with open('/deep-auto-punctuation/inferred_transcript.txt', 'r') as inferredStrFile:
+                    inferredString = inferredStrFile.read().replace('\n', '')
+                print(inferredString)
                 sumSentences = self.summaryExtClient.pullSummaryForText(inferredString, title)
                 videoSummary = ContentSummary(vidUrl, title, sumSentences)
                 videoSummaries.append(videoSummary)
         return videoSummaries
 
 
-    
+
 if __name__ == '__main__':
     botService = BotService()
-    botService.getSummariesForArticles("birds")
+    botService.queryYoutubeVideos("birds")
 
 
 
