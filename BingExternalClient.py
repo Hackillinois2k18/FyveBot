@@ -20,7 +20,7 @@ class ArticleTopicQueryNews(Resource):
                 try:
                     articleDisplays[art['url']] = art['image']['thumbnail']['contentUrl']
                 except KeyError:
-                    articleDisplays[art['url']] = ""
+                    articleDisplays[art['url']] = "https://medias2.prestastore.com/835054-pbig/chat-bot-for-social-networking.jpg"
         return articleNames, articleDisplays
 
 class ArticleTopicQuerySearch(Resource):
@@ -37,9 +37,6 @@ class ArticleTopicQuerySearch(Resource):
                     articleNames[art['url']] = art['name']
                 except KeyError:
                     articleNames[art['url']] = ""
-                try:
-                    articleDisplays[art['url']] = art['displayUrl']
-                except KeyError:
-                    articleDisplays[art['url']] = ""
+                articleDisplays[art['url']] = "https://medias2.prestastore.com/835054-pbig/chat-bot-for-social-networking.jpg"
         return articleNames, articleDisplays
 

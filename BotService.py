@@ -79,9 +79,4 @@ class BotService:
 
 
 
-if __name__ == '__main__':
-    botService = BotService()
-    botService.getSummariesForArticles("how to dice onions")
-
-
 
