@@ -1,10 +1,7 @@
 clean:
 	rm -r *.pyc
 run:
-	python manage.py runserver
+	python BotClient.py
 build:
 	pip install -r requirements.txt
 
-help:
-	@echo "    clean"
-	#echo "	   run"
