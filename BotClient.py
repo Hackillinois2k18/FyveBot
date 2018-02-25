@@ -11,7 +11,7 @@ class BotClient(Resource):
     def get(self, content, query):
         botService = BotService()
         if content == 'video':
-            jsonResp = botService.queryYoutubeVideos(query)
+            jsonResp = botService.getYoutubeVideoSums(query)
         else:
             jsonResp = botService.getSummariesForArticles(query)
         url = "bot_url"

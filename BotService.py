@@ -1,3 +1,6 @@
+import subprocess
+from pipes import quote
+
 from BingExternalClient import ArticleTopicQueryNews, ArticleTopicQuerySearch
 from SummaryExternalClient import SummaryExternalClient
 from ContentSummary import ContentSummary
@@ -7,6 +10,7 @@ import os
 from random import shuffle
 import time
 import json
+import re
 import jsonify
 
 
@@ -44,7 +48,7 @@ class BotService:
         print(json.dumps(artSummaries, default=lambda o: o.__dict__))
         return artSummaries
 
-    def queryYoutubeVideos(self, keywords):
+    def getYoutubeVideoSums(self, keywords):
         videoIds = self.youtubeQueryClient.get(keywords)
         videoSummaries = []
         for vidId, title in videoIds.iteritems():
@@ -53,28 +57,29 @@ class BotService:
                 self.seleniumScrape.run(vidId)
                 time.sleep(3)
                 with open('raw_transcript.txt', 'r') as rawTranscriptFile:
-                    transcript = rawTranscriptFile.read().replace('\n', '')
+                    transcript = rawTranscriptFile.read().replace('\n', ' ')
                 rawTranscriptFile.close()
                 os.remove('raw_transcript.txt')
             except:
                 continue
             if transcript:
-                os.system("cd deep-auto-punctuation; python3 deep-auto-punctuation/infer.py {} >> inferred_transcript.txt".format(transcript))
+                transcript = re.sub('\s*\[[^]]*]', '', transcript)
+                subprocess.call("cd deep-auto-punctuation;python3 infer.py {} >> inferred_transcript.txt".format(quote(transcript)), shell=True)
                 with open('deep-auto-punctuation/inferred_transcript.txt', 'r') as inferredStrFile:
-                    inferredString = inferredStrFile.read().replace('\n', '')
+                    inferredString = inferredStrFile.read().replace('\n', ' ')
                 inferredStrFile.close()
                 os.remove('deep-auto-punctuation/inferred_transcript.txt')
                 sumSentences = self.summaryExtClient.pullSummaryForText(inferredString, title)
                 videoSummary = ContentSummary(vidUrl, title, sumSentences)
                 videoSummaries.append(videoSummary)
-        print("Vid SUMMARIESSSSSSS: {}".format(videoSummaries))
+        print(json.dumps(videoSummaries, default=lambda o: o.__dict__))
         return videoSummaries
 
 
 
 if __name__ == '__main__':
     botService = BotService()
-    botService.getSummariesForArticles("what is the most expensive yacht in the world")
+    botService.getYoutubeVideoSums("how to make a slip and slide")
 
 
 

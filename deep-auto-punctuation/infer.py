@@ -6,6 +6,7 @@ import torch
 from termcolor import cprint, colored as c
 import model
 import data
+import re
 import sys
 
 source = sys.argv[1]
@@ -45,7 +46,7 @@ def predict_next(source, in_edgt, gen_length=None, temperature=0.05):
     for i in range(len(result) - 1):
         if result[i] == '.':
             result = result[:i] + result[i].upper() + result[i + 1:]
-    return result
+    print(result)
 
 predict_next(source, get_edgt())
     

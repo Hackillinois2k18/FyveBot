@@ -11,7 +11,10 @@ from selenium.webdriver.chrome.options import Options
 class SeleniumScrape:
 
     def run(self, vidId):
-        driver = webdriver.Chrome('/Users/Mitch/Documents/chromedriver')
+        options = webdriver.ChromeOptions()
+        options.add_argument('headless')
+        driver = webdriver.Chrome(chrome_options=options)
+
         driver.get("https://www.youtube.com/watch?v={}".format(vidId))
         #mute video
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//button[@class='ytp-mute-button ytp-button']"))).click()
