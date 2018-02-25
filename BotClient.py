@@ -22,5 +22,5 @@ api.add_resource(BotClientArticle, '/fyve-bot/articles/<query>')
 api.add_resource(BotClientVideo, '/fyve-bot/videos/<query>')
 
 if __name__ == '__main__':
-    app.run(port=5000)
+    app.run()
 
