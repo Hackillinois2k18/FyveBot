@@ -11,8 +11,10 @@ FYVE BOT is an education bot that strives to summarize a topic for the user. Whe
 Use the included make-file to build the project.
 
 Run the following commands from the top-level directory:
-    sudo make build
-    make run 
+```
+sudo make build
+make run 
+```
 
 ----
 ## Usage
