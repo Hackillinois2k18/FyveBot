@@ -13,7 +13,8 @@ class SeleniumScrape:
     def run(self, vidId):
         options = webdriver.ChromeOptions()
         options.add_argument('headless')
-        driver = webdriver.Chrome(chrome_options=options)
+        driver = webdriver.Chrome('chromedriver/chromedriver', chrome_options=options)
+        # driver = webdriver.Chrome(chrome_options=options)
 
         driver.get("https://www.youtube.com/watch?v={}".format(vidId))
         #mute video
