@@ -13,7 +13,7 @@ Use the included make-file to build the project.
 Run the following commands from the top-level directory:
 ```
 sudo make build
-make run 
+make run
 ```
 
 ----
@@ -61,6 +61,7 @@ MIT License
 ----
 ## Acknowledgements
 
+Yang, Ge - Deep Auto Punctuation
 @article{deeppunc,
   title={Deep-Auto-Punctuation},
   author={Yang, Ge},
