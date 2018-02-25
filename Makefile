@@ -3,5 +3,5 @@ clean:
 run:
 	python BotClient.py
 build:
-	pip install -r requirements.txt
+	sudo pip install -r requirements.txt
 
