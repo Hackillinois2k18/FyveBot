@@ -34,6 +34,7 @@ FYVE BOT can be run alone as well as added to other platforms such as GroupMe an
 * [Selenium](https://www.seleniumhq.org/) - used to obtain the transcript of a YouTube video
 * [Aylien API](https://aylien.com/text-api/summarization/) - summarizes long articles/transcripts
 * [Deep Auto Punctuation](https://github.com/episodeyang/deep-auto-punctuation) - used to insert proper punctuation into a YouTube transcript
+* [ChromeDriver](https://sites.google.com/a/chromium.org/chromedriver/downloads) - allows the Selenium web driver to function with Google Chrome 
 
 ----
 ## Versioning
