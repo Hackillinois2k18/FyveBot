@@ -10,6 +10,10 @@ FYVE BOT is an education bot that strives to summarize a topic for the user. Whe
 
 Use the included make-file to build the project.
 
+Run the following commands from the top-level directory:
+    sudo make build
+    make run 
+
 ----
 ## Usage
 
@@ -49,10 +53,18 @@ FYVE BOT can be run alone as well as added to other platforms such as GroupMe an
 ----
 ## License
 
-Open Source yo
+MIT License
 
 
 ----
 ## Acknowledgements
 
-Shoutout to HackIllinois and the boys
+@article{deeppunc,
+  title={Deep-Auto-Punctuation},
+  author={Yang, Ge},
+  journal={arxiv},
+  year={2017},
+  doi={10.5281/zenodo.438358}
+  url={https://zenodo.org/record/438358;
+       https://github.com/episodeyang/deep-auto-punctuation}
+}
