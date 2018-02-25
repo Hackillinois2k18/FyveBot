@@ -10,7 +10,7 @@ class SummaryExternalClient:
                    "X-AYLIEN-TextAPI-Application-ID" : credentials.AYLIEN_APP_ID}
         params = {"url" : artUrl,
                   "title" : title,
-                  "sentences_number": 9}
+                  "sentences_number": 7}
         summary = requests.get(url=url, headers=headers, params=params)
         try:
             sentences = summary.json()['sentences']
@@ -24,7 +24,7 @@ class SummaryExternalClient:
                    "X-AYLIEN-TextAPI-Application-ID" : credentials.AYLIEN_APP_ID}
         params = {"text": text,
                   "title": title,
-                  "sentences_number": 9}
+                  "sentences_number": 7}
         summary = requests.get(url=url, headers=headers, params=params)
         try:
             sentences = summary.json()['sentences']
