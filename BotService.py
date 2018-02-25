@@ -45,8 +45,8 @@ class BotService:
             articleSummary = ContentSummary(url, title, sumSentences)
             artSummaries.append(articleSummary)
         shuffle(artSummaries)
-        print(json.dumps(artSummaries, default=lambda o: o.__dict__))
-        return artSummaries
+        
+        return json.dumps(artSummaries, encoding='utf-8', default=lambda o: o.__dict__)
 
     def getYoutubeVideoSums(self, keywords):
         videoIds = self.youtubeQueryClient.get(keywords)
@@ -72,14 +72,14 @@ class BotService:
                 sumSentences = self.summaryExtClient.pullSummaryForText(inferredString, title)
                 videoSummary = ContentSummary(vidUrl, title, sumSentences)
                 videoSummaries.append(videoSummary)
-        print(json.dumps(videoSummaries, default=lambda o: o.__dict__))
-        return videoSummaries
+        
+        return json.dumps(videoSummaries, encoding='utf-8', default=lambda o: o.__dict__)
 
 
 
 if __name__ == '__main__':
     botService = BotService()
-    botService.getYoutubeVideoSums("how to make a slip and slide")
+    botService.getSummariesForArticles("how to make a slip and slide")
 
 
 
