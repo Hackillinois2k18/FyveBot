@@ -8,7 +8,7 @@ class ArticleTopicQueryNews(Resource):
         articleNames = {}
         articleDisplays = {}
         auth = {"Ocp-Apim-Subscription-Key": credentials.BING_CLIENT_API_KEY}
-        url = "https://api.cognitive.microsoft.com/bing/v7.0/news/search?q={}&count=2&offset=0&mkt=en-us".format(keyword)
+        url = "https://api.cognitive.microsoft.com/bing/v7.0/news/search?q={}&count=5&offset=0&mkt=en-us".format(keyword)
         jsonData = requests.get(url=url, headers=auth)
         if jsonData.json()['value']:
             articles = jsonData.json()['value']
@@ -28,7 +28,7 @@ class ArticleTopicQuerySearch(Resource):
         articleNames = {}
         articleDisplays = {}
         auth = {"Ocp-Apim-Subscription-Key": credentials.BING_CLIENT_API_KEY}
-        url = "https://api.cognitive.microsoft.com/bing/v7.0/search?q={}&count=3&offset=0&mkt=en-us".format(keyword)
+        url = "https://api.cognitive.microsoft.com/bing/v7.0/search?q={}&count=5&offset=0&mkt=en-us".format(keyword)
         jsonData = requests.get(url=url, headers=auth)
         if jsonData.json()['webPages']:
             articles = jsonData.json()['webPages']['value']

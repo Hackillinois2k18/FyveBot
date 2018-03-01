@@ -36,16 +36,26 @@ class BotService:
         artSummaries = []
         newsArticleNames, newsArticleDisplays = self.queryRelevantNewsArticles(keyword)
         searchArticleNames, searchArticleDisplays = self.queryRelevantSearchArticles(keyword)
+        search_count = 0
+        news_count = 0
         for url, title in searchArticleNames.iteritems():
             sumSentences = self.summaryExtClient.pullSummaryForUrl(url, title)
             displayUrl = searchArticleDisplays.get(url)
-            articleSummary = ContentSummary(url, title, sumSentences, displayUrl)
-            artSummaries.append(articleSummary)
+            if len(sumSentences) > 0:
+                articleSummary = ContentSummary(url, title, sumSentences, displayUrl)
+                artSummaries.append(articleSummary)
+                search_count += 1
+            if search_count > 3:
+                break
         for url, title in newsArticleNames.iteritems():
             sumSentences = self.summaryExtClient.pullSummaryForUrl(url, title)
             displayUrl = newsArticleDisplays.get(url)
-            articleSummary = ContentSummary(url, title, sumSentences, displayUrl)
-            artSummaries.append(articleSummary)
+            if len(sumSentences) > 0:
+                articleSummary = ContentSummary(url, title, sumSentences, displayUrl)
+                artSummaries.append(articleSummary)
+                news_count += 1
+            if news_count > 3:
+                break
         shuffle(artSummaries)
         return json.dumps(artSummaries, encoding='utf-8', default=lambda o: o.__dict__)
 
