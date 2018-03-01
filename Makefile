@@ -1,5 +1,5 @@
 clean:
-	rm -r *.pyc
+	find . -name '*.pyc' -delete
 run:
 	python BotClient.py
 build:

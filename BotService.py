@@ -62,7 +62,6 @@ class BotService:
     def getYoutubeVideoSums(self, keywords):
         videoTitles, videoDisplays = self.youtubeQueryClient.get(keywords)
         videoSummaries = []
-        transcript = None
         for vidId, title in videoTitles.iteritems():
             vidUrl = "https://www.youtube.com/watch?v={}".format(vidId)
             try:
@@ -89,7 +88,6 @@ class BotService:
                 vidDisplay = videoDisplays.get(vidId)
                 videoSummary = ContentSummary(vidUrl, title, [], vidDisplay)
                 videoSummaries.append(videoSummary)
-        print(json.dumps(videoSummaries, encoding='utf-8', default=lambda o: o.__dict__))
         return json.dumps(videoSummaries, encoding='utf-8', default=lambda o: o.__dict__)
 
 
